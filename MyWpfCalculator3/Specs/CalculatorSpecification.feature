@@ -62,6 +62,25 @@ Scenario: Subtract and then divide
 	Given I have entered the keys "5+4/2"
 	When I enter the key "="
 	Then the display value will be "7"
+
+@OrderOfOperations
+Scenario: Subtract and then add
+	Given I have entered the keys "5-4+2"
+	When I enter the key "="
+	Then the display value will be "3"
+
+@OrderOfOperations
+Scenario: Add and then subtract
+	Given I have entered the keys "5+4-2"
+	When I enter the key "="
+	Then the display value will be "7"
+	
+
+@OrderOfOperations
+Scenario: Multiply, divide, add and subtract
+	Given I have entered the keys "3*5+4/2-2*7"
+	When I enter the key "="
+	Then the display value will be "3"
 	
 
 @Anomolies

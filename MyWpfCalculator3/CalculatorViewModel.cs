@@ -8,10 +8,11 @@ namespace MyWpfCalculator3
 {
     public class CalculatorViewModel
     {
-        private int _cachedValue;
+        #region Fields
         private string _displayValue = "0";
         private bool _isEditing;
-        private Operator _operator;
+        private CalculationNode _head;
+        #endregion
 
         internal void EnteryKey(char character)
         {
@@ -43,18 +44,12 @@ namespace MyWpfCalculator3
                 case '*': EnterOperator(Operator.Multiply); break;
                 case '/': EnterOperator(Operator.Divide); break;
                 case '=':
-                    switch (_operator)
-                    {
-                        case Operator.Add: UpdateResult(_cachedValue + Convert.ToInt32(DisplayValue)); break;
-                        case Operator.Subtract: UpdateResult(_cachedValue - Convert.ToInt32(DisplayValue)); break;
-                        case Operator.Multiply: UpdateResult(_cachedValue * Convert.ToInt32(DisplayValue)); break;
-                        case Operator.Divide: UpdateResult(_cachedValue / Convert.ToInt32(DisplayValue)); break;
-                        case Operator.None:
-                            _isEditing = false;
-                            break;
-                        default:
-                            break;
-                    }
+                    int newValue = Convert.ToInt32(DisplayValue);
+                    var node = Insert(_head, newValue, Operator.None);
+                    var calculationValue = Calculate(node);
+                    DisplayValue = calculationValue.ToString();
+                    _head = null;
+                    _isEditing = false;
                     break;
                 default:
                     break;
@@ -63,17 +58,125 @@ namespace MyWpfCalculator3
 
         private void EnterOperator(Operator @operator)
         {
-            _cachedValue = Convert.ToInt32(DisplayValue);
+            int newValue = Convert.ToInt32(DisplayValue);
+            _head = Insert(_head, newValue, @operator);
             _isEditing = false;
-            _operator = @operator;
         }
 
-        private void UpdateResult(int value)
+        private int Calculate(CalculationNode node)
         {
-            DisplayValue = value.ToString();
-            _isEditing = false;
+            if (node == null) return 0;
+
+            var numeric = node.Value as NumericValue;
+            if (numeric != null) return numeric.Value;
+
+            if (node.Right == null) return Calculate(node.Left);
+
+            var @operator = ((OperatorValue)node.Value).Value;
+            var left = Calculate(node.Left);
+            var right = Calculate(node.Right);
+            switch (@operator)
+            {
+                case Operator.Add: return left + right;
+                case Operator.Subtract: return left - right;
+                case Operator.Multiply: return left * right;
+                case Operator.Divide: return Convert.ToInt32(left / right);
+                case Operator.None:
+                default: return 0;
+            }
         }
 
+        private CalculationNode Insert(CalculationNode node, int value, Operator @operator)
+        {
+            if (node == null)
+            {
+                return (@operator == Operator.None)
+                    ? new CalculationNode(value)
+                    : new CalculationNode(@operator)
+                    {
+                        Left = new CalculationNode(value)
+                    };
+            }
+            else if (node.Value is NumericValue)
+            {
+                if (@operator == Operator.None)
+                {
+                    return new CalculationNode(value);
+                }
+                return new CalculationNode(@operator)
+                {
+                    Left = node
+                };
+            }
+            else
+            {
+                if (@operator == Operator.None)
+                {
+                    if (node.Right == null)
+                    {
+                        node.Right = new CalculationNode(value);
+                    }
+                    else
+                    {
+                        Insert(node.Right, value, @operator);
+                    }
+                    return node;
+                }
+
+                var headOperator = ((OperatorValue)node.Value).Value;
+                switch (headOperator)
+                {
+                    case Operator.Divide:
+                    case Operator.Multiply:
+                        node.Right = new CalculationNode(value);
+                        return new CalculationNode(@operator)
+                        {
+                            Left = node
+                        };
+                    case Operator.Add:
+                    case Operator.Subtract:
+                        if (node.Right == null)
+                        {
+                            switch (@operator)
+                            {
+                                case Operator.Add:
+                                case Operator.Subtract:
+                                    node.Right = new CalculationNode(value);
+                                    return new CalculationNode(@operator)
+                                    {
+                                        Left = node
+                                    };
+                                case Operator.Divide:
+                                case Operator.Multiply:
+                                    node.Right = new CalculationNode(@operator)
+                                    {
+                                        Left = new CalculationNode(value)
+                                    };
+                                    return node;
+                                case Operator.None:
+                                default:
+                                    return node;
+                            }
+                        }
+                        else
+                        {
+                            node.Right = Insert(node.Right, value, @operator);
+                            return node;
+                        }
+                    case Operator.None:
+                    default:
+                        return node;
+                }
+            }
+        }
+        
+        public string DisplayValue
+        {
+            get { return _displayValue; }
+            set { _displayValue = value; }
+        }
+
+        #region Nested types
         private enum Operator
         {
             None,
@@ -82,10 +185,38 @@ namespace MyWpfCalculator3
             Divide,
             Multiply
         }
-        public string DisplayValue
+
+        private class CalculationNode
         {
-            get { return _displayValue; }
-            set { _displayValue = value; }
+            public CalculationNode Left { get; set; }
+            public CalculationNode Right { get; set; }
+
+            public CalculationValue Value { get; private set; }
+
+            public CalculationNode(int value)
+            {
+                Value = new NumericValue(value);
+            }
+
+            public CalculationNode(Operator value)
+            {
+                Value = new OperatorValue(value);
+            }
         }
+
+        private abstract class CalculationValue { }
+
+        private class OperatorValue : CalculationValue
+        {
+            public Operator Value { get; private set; }
+            public OperatorValue(Operator value) { Value = value; }
+        }
+
+        private class NumericValue : CalculationValue
+        {
+            public int Value { get; private set; }
+            public NumericValue(int value) { Value = value; }
+        }
+        #endregion
     }
 }

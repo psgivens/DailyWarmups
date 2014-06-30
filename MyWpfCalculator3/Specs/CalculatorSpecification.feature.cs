@@ -270,6 +270,66 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Subtract and then add")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("OrderOfOperations")]
+        public virtual void SubtractAndThenAdd()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Subtract and then add", new string[] {
+                        "OrderOfOperations"});
+#line 67
+this.ScenarioSetup(scenarioInfo);
+#line 68
+ testRunner.Given("I have entered the keys \"5-4+2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 69
+ testRunner.When("I enter the key \"=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 70
+ testRunner.Then("the display value will be \"3\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Add and then subtract")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("OrderOfOperations")]
+        public virtual void AddAndThenSubtract()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add and then subtract", new string[] {
+                        "OrderOfOperations"});
+#line 73
+this.ScenarioSetup(scenarioInfo);
+#line 74
+ testRunner.Given("I have entered the keys \"5+4-2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 75
+ testRunner.When("I enter the key \"=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 76
+ testRunner.Then("the display value will be \"7\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Multiply, divide, add and subtract")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("OrderOfOperations")]
+        public virtual void MultiplyDivideAddAndSubtract()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Multiply, divide, add and subtract", new string[] {
+                        "OrderOfOperations"});
+#line 80
+this.ScenarioSetup(scenarioInfo);
+#line 81
+ testRunner.Given("I have entered the keys \"3*5+4/2-2*7\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 82
+ testRunner.When("I enter the key \"=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 83
+ testRunner.Then("the display value will be \"3\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Equals clears cache")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Anomolies")]
@@ -277,13 +337,13 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals clears cache", new string[] {
                         "Anomolies"});
-#line 68
+#line 87
 this.ScenarioSetup(scenarioInfo);
-#line 69
+#line 88
  testRunner.Given("I have entered the keys \"4=5*6\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 70
+#line 89
  testRunner.When("I enter the key \"=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 71
+#line 90
  testRunner.Then("the display value will be \"30\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -297,13 +357,13 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals perserves display", new string[] {
                         "Anomolies"});
-#line 74
+#line 93
 this.ScenarioSetup(scenarioInfo);
-#line 75
+#line 94
  testRunner.Given("I have entered the keys \"4\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 76
+#line 95
  testRunner.When("I enter the key \"=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 77
+#line 96
  testRunner.Then("the display value will be \"4\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
