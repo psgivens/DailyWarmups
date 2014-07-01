@@ -24,7 +24,7 @@ namespace MyWpfCalculator2.Specs
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "CalculatorSpecification.feature"
+#line 1 "CalculatorSpecification2.feature"
 #line hidden
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute()]

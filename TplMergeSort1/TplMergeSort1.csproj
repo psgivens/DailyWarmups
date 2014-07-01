@@ -60,7 +60,6 @@
       <DependentUpon>MergeSortAlgorithm.feature</DependentUpon>
     </Compile>
     <Compile Include="Specs\StepDefinitions\MergesortAlgorithmSteps.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

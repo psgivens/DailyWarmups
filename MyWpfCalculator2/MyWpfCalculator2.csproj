@@ -57,10 +57,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Specs\CalculatorSpecification.feature.cs">
+    <Compile Include="Specs\CalculatorSpecification2.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CalculatorSpecification.feature</DependentUpon>
+      <DependentUpon>CalculatorSpecification2.feature</DependentUpon>
     </Compile>
     <Compile Include="Specs\StepDefinitions\CalculatorSpecificationSteps.cs" />
     <Compile Include="ViewModelBase.cs" />
@@ -102,9 +102,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Specs\CalculatorSpecification.feature">
+    <None Include="Specs\CalculatorSpecification2.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>CalculatorSpecification.feature.cs</LastGenOutput>
+      <LastGenOutput>CalculatorSpecification2.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
