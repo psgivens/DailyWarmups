@@ -8,24 +8,29 @@ namespace MyWpfCalculator2.Specs.StepDefinitions
     public class CalculatorSpecificationSteps
     {
         private readonly CalculatorViewModel _calculator = new CalculatorViewModel();
-        private string _displayValue;
-
-        [Given(@"I have pressed the key '(.)'")]
-        public void GivenIHavePressedTheKey(char p0)
+        
+        [Given(@"I have entered the keys ""(.*)""")]
+        public void GivenIHaveEnteredTheKeys(string keySequence)
         {
-            _calculator.KeyPressed.Execute(p0);
+            Assert.Fail("GivenIHaveEnteredTheKeys is not implemented.");
+            foreach(char key in keySequence)
+            {
+                //_calculator.EnteryKey(key);
+            }
         }
 
-        [When(@"I look at the display")]
-        public void WhenILookAtTheDisplay()
+        [When(@"I enter the key ""(.)""")]
+        public void WhenIEnterTheKey(char character)
         {
-            _displayValue = _calculator.DisplayValue;
+            Assert.Fail("WhenIEnterTheKey is not imlemented.");
+            //_calculator.EnteryKey(@character);
         }
 
-        [Then(@"I see the string ""(.*)""")]
-        public void ThenISeeTheString(string p0)
+        [Then(@"the display value will be ""(.*)""")]
+        public void ThenTheDisplayValueWillBe(string expectedDisplay)
         {
-            Assert.IsTrue(_displayValue == p0, string.Format("Display value shows {0}, but we expected {1}", _displayValue, p0));
+            Assert.AreEqual(_calculator.DisplayValue, expectedDisplay, string.Format("Display is expected to show {0}, but shows {1}", _calculator.DisplayValue, expectedDisplay));
         }
+
     }
 }

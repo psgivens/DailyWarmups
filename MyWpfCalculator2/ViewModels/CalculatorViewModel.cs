@@ -9,23 +9,23 @@ namespace MyWpfCalculator2
 {
     public class CalculatorViewModel : ViewModelBase
     {
-        private string _displayValue;
-        private readonly KeyPressedCommand _keyPressed;
-        private bool _isValue;
-        private int? _tempValue;
-        private Operator? _operator;
+        #region Fields
+        private string _displayValue = "0";
+        private bool _isEditing;
+        private CalculationNode _head;
+        #endregion
 
-        private enum Operator
-        {
-            Add,
-            Multiply,
-            Subtract,
-            Divide
-        }
+        private readonly ParameterCommand<char> _enterDigit;
+        private readonly ParameterCommand<Operator> _enterOperator;
+        private readonly ParameterCommand<Control> _enterControl;
 
         public CalculatorViewModel()
         {
-            _keyPressed = new KeyPressedCommand(this);
+            _enterDigit = new ParameterCommand<char>(Convert.ToChar, EnterDigit, _ => true);
+            _enterOperator = new ParameterCommand<Operator>(_ => (Operator)Enum.Parse(typeof(Operator), _.ToString()),
+                EnterOperator, IsOperatorAvailable);
+            _enterControl = new ParameterCommand<Control>(_ => (Control)Enum.Parse(typeof(Control), _.ToString()),
+                EnterControl, IsControlAvailable);
             _displayValue = "0";
         }
 
@@ -39,116 +39,327 @@ namespace MyWpfCalculator2
             }
         }
 
-        private void PressKey(char key)
+        public ICommand EnterDigitCommand
         {
-            int value;
-            if (Int32.TryParse(key.ToString(), out value))
+            get { return _enterDigit; }
+        }
+
+        public ICommand EnterOperatorCommand
+        {
+            get { return _enterOperator; }
+        }
+
+        public ICommand EnterControlCommand
+        {
+            get { return _enterControl; }
+        }
+
+        public bool IsEditing
+        {
+            get { return _isEditing; }
+            set
             {
-                InsertNumber(value);
+                _isEditing = value;
+                _enterControl.TriggerEvent();
+                _enterOperator.TriggerEvent();
+            }
+        }
+
+        private void EnterDigit(char digit)
+        {
+            Console.WriteLine("Digit " + digit.ToString());
+            if (IsEditing && DisplayValue != "0")
+            {
+                DisplayValue += digit.ToString();
             }
             else
             {
-                switch (key)
-                {
-                    case '+':
-                        ApplyOperator(Operator.Add);
-                        break;
-                    case '*':
-                        ApplyOperator(Operator.Multiply);
-                        break;
-                    case '/':
-                        ApplyOperator(Operator.Divide);
-                        break;
-                    case '-':
-                        ApplyOperator(Operator.Subtract);
-                        break;
-                    case '=':
-                        if (!_operator.HasValue)
-                        {
-                            _tempValue = null;
-                            _isValue = false;
-                            return;
-                        }
-                        if (!_tempValue.HasValue) return;
+                IsEditing = true;
+                DisplayValue = digit.ToString();
+            }
+        }
 
-                        switch (_operator.Value)
+        private void EnterOperator(Operator @operator)
+        {
+            switch (@operator)
+            {
+                case Operator.Add:
+                case Operator.Multiply:
+                case Operator.Subtract:
+                case Operator.Divide:
+                    Console.WriteLine("Operator " + @operator.ToString());
+                    int newValue = Convert.ToInt32(DisplayValue);
+                    _head = Insert(_head, newValue, @operator);
+                    IsEditing = false;
+                    break;
+                case Operator.Reciprocal:
+                    throw new NotImplementedException("Reciprocal");
+                    break;
+                case Operator.Percent:
+                    throw new NotImplementedException("Percent");
+                    break;
+                case Operator.Invert:
+                    throw new NotImplementedException("Invert");
+                    break;
+                case Operator.Negate:
+                    throw new NotImplementedException("Negate");
+                    break;
+                case Operator.Radical:
+                    throw new NotImplementedException("Radical");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void EnterControl(Control control)
+        {
+            Console.WriteLine("Control " + control.ToString());
+            switch (control)
+            {
+                case Control.Clear:
+                    DisplayValue = "0";
+                    _head = null;
+                    IsEditing = false;
+                    break;
+                case Control.ClearE:
+                    DisplayValue = "0";
+                    IsEditing = false;
+                    break;
+                case Control.Back:
+                    var displayValue = DisplayValue;
+                    DisplayValue = displayValue.Substring(displayValue.Length - 1);
+                    break;
+                case Control.Calculate:
+                    int newValue = Convert.ToInt32(DisplayValue);
+                    var node = InsertFinal(_head, newValue);
+                    var calculationValue = Calculate(node);
+                    DisplayValue = calculationValue.ToString();
+                    _head = null;
+                    IsEditing = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private bool IsOperatorAvailable(Operator @operator)
+        {
+            switch (@operator)
+            {
+                case Operator.Add:
+                    break;
+                case Operator.Multiply:
+                    break;
+                case Operator.Subtract:
+                    break;
+                case Operator.Divide:
+                    break;
+                case Operator.Reciprocal:
+                    break;
+                case Operator.Percent:
+                    break;
+                case Operator.Invert:
+                    break;
+                case Operator.Negate:
+                    break;
+                case Operator.Radical:
+                    break;
+                default:
+                    break;
+            }
+            return _isEditing;
+        }
+
+        private bool IsControlAvailable(Control control)
+        {
+            switch (control)
+            {
+                case Control.Clear:
+                    break;
+                case Control.Back:
+                    break;
+                case Control.Calculate:
+                    break;
+                case Control.ClearE:
+                    break;
+                default:
+                    break;
+            }
+            return IsEditing;
+        }
+
+        private int Calculate(CalculationNode node)
+        {
+            if (node == null) return 0;
+
+            var numeric = node.Value as NumericValue;
+            if (numeric != null) return numeric.Value;
+
+            if (node.Right == null) return Calculate(node.Left);
+
+            var @operator = ((OperatorValue)node.Value).Value;
+            var left = Calculate(node.Left);
+            var right = Calculate(node.Right);
+            switch (@operator)
+            {
+                case Operator.Add: return left + right;
+                case Operator.Subtract: return left - right;
+                case Operator.Multiply: return left * right;
+                case Operator.Divide: return Convert.ToInt32(left / right);
+                default: return 0;
+            }
+        }
+
+        private CalculationNode InsertFinal(CalculationNode node, int value)
+        {
+            if (node == null)
+            {
+                return new CalculationNode(value);
+            }
+            else if (node.Value is NumericValue)
+            {
+                return new CalculationNode(value);
+            }
+            else if (node.Right == null)
+            {
+                node.Right = new CalculationNode(value);
+            }
+            else
+            {
+                InsertFinal(node.Right, value);
+            }
+            return node;
+        }
+
+        private CalculationNode Insert(CalculationNode node, int value, Operator @operator)
+        {
+            if (node == null)
+            {
+                return new CalculationNode(@operator)
+                    {
+                        Left = new CalculationNode(value)
+                    };
+            }
+            else if (node.Value is NumericValue)
+            {
+                return new CalculationNode(@operator)
+                {
+                    Left = node
+                };
+            }
+            else
+            {
+                var headOperator = ((OperatorValue)node.Value).Value;
+                switch (headOperator)
+                {
+                    case Operator.Divide:
+                    case Operator.Multiply:
+                        node.Right = new CalculationNode(value);
+                        return new CalculationNode(@operator)
                         {
-                            case Operator.Add:
-                                ApplyResult(_tempValue.Value + Convert.ToInt32(DisplayValue));
-                                break;
-                            case Operator.Multiply:
-                                ApplyResult(_tempValue.Value * Convert.ToInt32(DisplayValue));
-                                break;
-                            case Operator.Subtract:
-                                ApplyResult(_tempValue.Value - Convert.ToInt32(DisplayValue));
-                                break;
-                            case Operator.Divide:
-                                ApplyResult(Convert.ToInt32(_tempValue.Value / Convert.ToInt32(DisplayValue)));
-                                break;
-                            default:
-                                break;
+                            Left = node
+                        };
+                    case Operator.Add:
+                    case Operator.Subtract:
+                        if (node.Right == null)
+                        {
+                            switch (@operator)
+                            {
+                                case Operator.Add:
+                                case Operator.Subtract:
+                                    node.Right = new CalculationNode(value);
+                                    return new CalculationNode(@operator)
+                                    {
+                                        Left = node
+                                    };
+                                case Operator.Divide:
+                                case Operator.Multiply:
+                                    node.Right = new CalculationNode(@operator)
+                                    {
+                                        Left = new CalculationNode(value)
+                                    };
+                                    return node;
+                                default:
+                                    return node;
+                            }
                         }
-                        break;
+                        else
+                        {
+                            node.Right = Insert(node.Right, value, @operator);
+                            return node;
+                        }
                     default:
-                        break;
+                        return node;
                 }
             }
         }
 
-        private void ApplyResult(int result)
+        #region Nested Types
+        private class ParameterCommand<T> : ICommand
         {
-            _tempValue = result;
-            DisplayValue = _tempValue.ToString();
-            _operator = null;
-            _isValue = false;            
-        }
+            private readonly Func<object, T> _convert;
+            private readonly Action<T> _execute;
+            private readonly Predicate<T> _canExecute;
 
-        private void ApplyOperator(Operator @operator)
-        {
-            _tempValue = Convert.ToInt32(DisplayValue);
-            _isValue = false;
-            _operator = @operator;
-        }
-
-        private void InsertNumber(int value)
-        {
-            if (_isValue)
+            public ParameterCommand(Func<object, T> convert, Action<T> execute, Predicate<T> canExecute)
             {
-                DisplayValue += value;
-            }
-            else
-            {
-                if (value == 0) return;
-
-                DisplayValue = value.ToString();
-                _isValue = true;
-            }
-        }
-
-        public ICommand KeyPressed
-        {
-            get { return _keyPressed; }
-        }
-
-        private class KeyPressedCommand : ICommand
-        {
-            public readonly CalculatorViewModel _viewModel;
-            public KeyPressedCommand(CalculatorViewModel viewModel)
-            {
-                _viewModel = viewModel;
+                _convert = convert;
+                _execute = execute;
+                _canExecute = canExecute;
             }
 
             bool ICommand.CanExecute(object parameter)
             {
-                return true;
+                return _canExecute(_convert(parameter));
             }
 
+            internal void TriggerEvent()
+            {
+                if (CanExecuteChanged != null)
+                {
+                    CanExecuteChanged(this, EventArgs.Empty);
+                }
+            }
             public event EventHandler CanExecuteChanged;
 
             void ICommand.Execute(object parameter)
             {
-                _viewModel.PressKey(Convert.ToChar(parameter));
+                _execute(_convert(parameter));
             }
         }
+
+        private class CalculationNode
+        {
+            public CalculationNode Left { get; set; }
+            public CalculationNode Right { get; set; }
+
+            public CalculationValue Value { get; private set; }
+
+            public CalculationNode(int value)
+            {
+                Value = new NumericValue(value);
+            }
+
+            public CalculationNode(Operator value)
+            {
+                Value = new OperatorValue(value);
+            }
+        }
+
+        private abstract class CalculationValue { }
+
+        private class OperatorValue : CalculationValue
+        {
+            public Operator Value { get; private set; }
+            public OperatorValue(Operator value) { Value = value; }
+        }
+
+        private class NumericValue : CalculationValue
+        {
+            public int Value { get; private set; }
+            public NumericValue(int value) { Value = value; }
+        }
+        #endregion
     }
 }

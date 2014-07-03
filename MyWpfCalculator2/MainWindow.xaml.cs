@@ -18,7 +18,7 @@ namespace MyWpfCalculator2
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Elysium.Controls.Window
     {                 
         public MainWindow()
         {
@@ -29,7 +29,7 @@ namespace MyWpfCalculator2
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             var calculator = (CalculatorViewModel)DataContext;
-            calculator.KeyPressed.Execute(e.Key);
+            calculator.EnterDigitCommand.Execute(e.Key);
         }
     }
 }
