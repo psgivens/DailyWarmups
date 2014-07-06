@@ -43,17 +43,18 @@
 
         <KeyBinding Command="{Binding EnterOperatorCommand}" CommandParameter="Add" Key="OemPlus" />
         <KeyBinding Command="{Binding EnterOperatorCommand}" CommandParameter="Add" Key="OemPlus" Modifiers="Shift" />
-        <KeyBinding Command="{Binding EnterOperatorCommand}" CommandParameter="Subtract" Key="OemMinus" />        
+        <KeyBinding Command="{Binding EnterOperatorCommand}" CommandParameter="Subtract" Key="OemMinus" />
         <KeyBinding Command="{Binding EnterOperatorCommand}" CommandParameter="Subtract" Key="OemMinus" Modifiers="Shift" />
         <KeyBinding Command="{Binding EnterOperatorCommand}" CommandParameter="Divide" Key="OemQuestion" />
         <KeyBinding Command="{Binding EnterOperatorCommand}" CommandParameter="Multiply" Key="D8" Modifiers="Shift" />
-        
+
         <KeyBinding Command="{Binding EnterOperatorCommand}" CommandParameter="Add" Key="Add" />
         <KeyBinding Command="{Binding EnterOperatorCommand}" CommandParameter="Subtract" Key="Subtract" />
         <KeyBinding Command="{Binding EnterOperatorCommand}" CommandParameter="Divide" Key="Divide" />
         <KeyBinding Command="{Binding EnterOperatorCommand}" CommandParameter="Multiply" Key="Multiply" />
-        
+
     </Window.InputBindings>
+
     <Grid Margin="10">
         <Grid.Resources>
             <Style  TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
@@ -69,7 +70,7 @@
             </Style>
         </Grid.Resources>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -83,12 +84,20 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
-        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" 
+        <Grid Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="5" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <TextBlock  
+                 TextAlignment="Right" FontSize="12" 
+                 Margin="0,0,0,0"
+                 Text="{Binding EquationDisplay}"  />
+            <TextBlock  Grid.Row="1" 
                  TextAlignment="Right" FontSize="24" 
-                 Margin="0,0,10,0"
+                 Margin="0,0,0,0"
                  Text="{Binding DisplayValue}"  />
-
+        </Grid>
         <Button Grid.Column="0" Grid.Row="1" Content="&lt;--" Command="{Binding EnterControlCommand}" CommandParameter="Back" />
         <Button Grid.Column="1" Grid.Row="1" Content="CE"     Command="{Binding EnterControlCommand}" CommandParameter="ClearE" />
         <Button Grid.Column="2" Grid.Row="1" Content="C"      Command="{Binding EnterControlCommand}" CommandParameter="Clear" />

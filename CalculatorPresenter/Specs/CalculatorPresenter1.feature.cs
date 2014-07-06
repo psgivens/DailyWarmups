@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace MyWpfCalculator3.Specs
+namespace CalculatorPresenter.Specs
 {
     using TechTalk.SpecFlow;
     
@@ -19,19 +19,19 @@ namespace MyWpfCalculator3.Specs
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [Microsoft.VisualStudio.TestTools.UnitTesting.TestClassAttribute()]
-    public partial class CalculatorSpecification3Feature
+    public partial class CalculatorPresenterFeature
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "CalculatorSpecification.feature"
+#line 1 "CalculatorPresenter1.feature"
 #line hidden
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.ClassInitializeAttribute()]
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "CalculatorSpecification3", "In order to avoid silly mistakes\nAs a math idiot\nI want to be told the sum of two" +
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "CalculatorPresenter", "In order to avoid silly mistakes\nAs a math idiot\nI want to be told the sum of two" +
                     " numbers", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
@@ -47,9 +47,9 @@ namespace MyWpfCalculator3.Specs
         public virtual void TestInitialize()
         {
             if (((TechTalk.SpecFlow.FeatureContext.Current != null) 
-                        && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "CalculatorSpecification3")))
+                        && (TechTalk.SpecFlow.FeatureContext.Current.FeatureInfo.Title != "CalculatorPresenter")))
             {
-                MyWpfCalculator3.Specs.CalculatorSpecification3Feature.FeatureSetup(null);
+                CalculatorPresenter.Specs.CalculatorPresenterFeature.FeatureSetup(null);
             }
         }
         
@@ -71,7 +71,7 @@ namespace MyWpfCalculator3.Specs
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Display two digits")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorPresenter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Input")]
         public virtual void DisplayTwoDigits()
         {
@@ -91,7 +91,7 @@ this.ScenarioSetup(scenarioInfo);
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Do not display preceding zeros")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorPresenter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Input")]
         public virtual void DoNotDisplayPrecedingZeros()
         {
@@ -111,7 +111,7 @@ this.ScenarioSetup(scenarioInfo);
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Add 2 and 2")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorPresenter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Calculation")]
         public virtual void Add2And2()
         {
@@ -131,7 +131,7 @@ this.ScenarioSetup(scenarioInfo);
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Multiply 2 and 2")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorPresenter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Calculation")]
         public virtual void Multiply2And2()
         {
@@ -150,12 +150,12 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Divide 4 by 2")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Divide 8 by 2")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorPresenter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Calculation")]
-        public virtual void Divide4By2()
+        public virtual void Divide8By2()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Divide 4 by 2", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Divide 8 by 2", new string[] {
                         "Calculation"});
 #line 31
 this.ScenarioSetup(scenarioInfo);
@@ -171,7 +171,7 @@ this.ScenarioSetup(scenarioInfo);
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Subtract 1 from 4")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorPresenter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Calculation")]
         public virtual void Subtract1From4()
         {
@@ -191,7 +191,7 @@ this.ScenarioSetup(scenarioInfo);
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Multiply and then add")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorPresenter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("OrderOfOperations")]
         public virtual void MultiplyAndThenAdd()
         {
@@ -211,7 +211,7 @@ this.ScenarioSetup(scenarioInfo);
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Add and then multiply")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorPresenter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("OrderOfOperations")]
         public virtual void AddAndThenMultiply()
         {
@@ -231,7 +231,7 @@ this.ScenarioSetup(scenarioInfo);
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Divide and then subtract")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorPresenter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("OrderOfOperations")]
         public virtual void DivideAndThenSubtract()
         {
@@ -250,12 +250,12 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Add and then divide")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Subtract and then divide")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorPresenter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("OrderOfOperations")]
-        public virtual void AddAndThenDivide()
+        public virtual void SubtractAndThenDivide()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add and then divide", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Subtract and then divide", new string[] {
                         "OrderOfOperations"});
 #line 61
 this.ScenarioSetup(scenarioInfo);
@@ -271,7 +271,7 @@ this.ScenarioSetup(scenarioInfo);
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Subtract and then add")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorPresenter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("OrderOfOperations")]
         public virtual void SubtractAndThenAdd()
         {
@@ -280,18 +280,18 @@ this.ScenarioSetup(scenarioInfo);
 #line 67
 this.ScenarioSetup(scenarioInfo);
 #line 68
- testRunner.Given("I have entered the keys \"15-8+2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I have entered the keys \"5-4+2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 69
  testRunner.When("I enter the key \"=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 70
- testRunner.Then("the display value will be \"9\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the display value will be \"3\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Add and then subtract")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorPresenter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("OrderOfOperations")]
         public virtual void AddAndThenSubtract()
         {
@@ -311,7 +311,7 @@ this.ScenarioSetup(scenarioInfo);
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Multiply, divide, add and subtract")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorPresenter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("OrderOfOperations")]
         public virtual void MultiplyDivideAddAndSubtract()
         {
@@ -331,7 +331,7 @@ this.ScenarioSetup(scenarioInfo);
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Equals clears cache")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorPresenter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Anomolies")]
         public virtual void EqualsClearsCache()
         {
@@ -351,7 +351,7 @@ this.ScenarioSetup(scenarioInfo);
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Equals perserves display")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorSpecification3")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "CalculatorPresenter")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("Anomolies")]
         public virtual void EqualsPerservesDisplay()
         {

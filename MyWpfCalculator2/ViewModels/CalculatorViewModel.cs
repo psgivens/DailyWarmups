@@ -11,6 +11,7 @@ namespace MyWpfCalculator2
     {
         #region Fields
         private string _displayValue = "0";
+        private string _equationDisplay = "";
         private bool _isEditing;
         private CalculationNode _head;
         #endregion
@@ -36,6 +37,16 @@ namespace MyWpfCalculator2
             {
                 _displayValue = value;
                 RaisePropertyChanged("DisplayValue");
+            }
+        }
+
+        public string EquationDisplay
+        {
+            get { return _equationDisplay; }
+            set
+            {
+                _equationDisplay = value;
+                RaisePropertyChanged("EquationDisplay");
             }
         }
 
@@ -74,6 +85,7 @@ namespace MyWpfCalculator2
             }
             else
             {
+                if (_head == null) EquationDisplay = "";
                 IsEditing = true;
                 DisplayValue = digit.ToString();
             }
@@ -90,6 +102,7 @@ namespace MyWpfCalculator2
                     Console.WriteLine("Operator " + @operator.ToString());
                     int newValue = Convert.ToInt32(DisplayValue);
                     _head = Insert(_head, newValue, @operator);
+                    AppendOperatorToEquation(@operator, newValue);
                     IsEditing = false;
                     break;
                 case Operator.Reciprocal:
@@ -112,6 +125,29 @@ namespace MyWpfCalculator2
             }
         }
 
+        private void AppendOperatorToEquation(Operator @operator, int value)
+        {
+            char o = '\0';
+            switch (@operator)
+            {
+                case Operator.Add:
+                    o = '+';
+                    break;
+                case Operator.Multiply:
+                    o = '*';
+                    break;
+                case Operator.Subtract:
+                    o = '-';
+                    break;
+                case Operator.Divide:
+                    o = '/';
+                    break;
+                default:
+                    break;
+            }
+            EquationDisplay += string.Format("{0}{1}", value, o);
+        }
+
         private void EnterControl(Control control)
         {
             Console.WriteLine("Control " + control.ToString());
@@ -128,7 +164,15 @@ namespace MyWpfCalculator2
                     break;
                 case Control.Back:
                     var displayValue = DisplayValue;
-                    DisplayValue = displayValue.Substring(displayValue.Length - 1);
+                    if (displayValue.Length > 1)
+                    {
+                        DisplayValue = displayValue.Substring(0, displayValue.Length - 1);
+                    }
+                    else
+                    {
+                        DisplayValue = "0";
+                        IsEditing = false;
+                    }
                     break;
                 case Control.Calculate:
                     int newValue = Convert.ToInt32(DisplayValue);
@@ -136,6 +180,7 @@ namespace MyWpfCalculator2
                     var calculationValue = Calculate(node);
                     DisplayValue = calculationValue.ToString();
                     _head = null;
+                    EquationDisplay += string.Format("{0}=", newValue);
                     IsEditing = false;
                     break;
                 default:

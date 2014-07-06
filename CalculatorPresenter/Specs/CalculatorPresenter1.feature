@@ -1,4 +1,4 @@
-﻿Feature: CalculatorSpecification3
+﻿Feature: CalculatorPresenter
 	In order to avoid silly mistakes
 	As a math idiot
 	I want to be told the sum of two numbers
@@ -12,7 +12,7 @@ Scenario: Display two digits
 @Input
 Scenario: Do not display preceding zeros
 	Given I have entered the keys "0"
-	When I enter the key "1"
+	When I enter the key "1" 
 	Then the display value will be "1"
 
 @Calculation
@@ -28,7 +28,7 @@ Scenario: Multiply 2 and 2
 	Then the display value will be "4"
 
 @Calculation
-Scenario: Divide 4 by 2
+Scenario: Divide 8 by 2
 	Given I have entered the keys "8/2"
 	When I enter the key "="
 	Then the display value will be "4"
@@ -58,16 +58,16 @@ Scenario: Divide and then subtract
 	Then the display value will be "9"
 
 @OrderOfOperations
-Scenario: Add and then divide
+Scenario: Subtract and then divide
 	Given I have entered the keys "5+8/2"
 	When I enter the key "="
 	Then the display value will be "9"
 
 @OrderOfOperations
 Scenario: Subtract and then add
-	Given I have entered the keys "15-8+2"
+	Given I have entered the keys "5-4+2"
 	When I enter the key "="
-	Then the display value will be "9"
+	Then the display value will be "3"
 
 @OrderOfOperations
 Scenario: Add and then subtract
