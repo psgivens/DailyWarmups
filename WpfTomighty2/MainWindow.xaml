@@ -5,19 +5,26 @@
         xmlns:params="http://schemas.codeplex.com/elysium/params"
         WindowStyle="ToolWindow"
         ResizeMode="NoResize"         
-        Title="Pomodoro" Height="125" Width="225">
+        Title="Pomodoro" Height="155" Width="225">
+    <metro:Window.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter" />
+    </metro:Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="30" />            
+            <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
         <!--<TextBlock Grid.Row="0" Text="Pomodor" VerticalAlignment="Center" 
                    TextAlignment="Center" FontSize="20" />-->
         <TextBlock Grid.Row="0" Text="{Binding ClockDisplay}" VerticalAlignment="Center"
                    TextAlignment="Center" FontSize="50"  />
-        <Button Grid.Row="1" Content="Start Pomodoro" FontSize="16" Command="{Binding StartClockCommand}" 
-                Padding="0"
+        <Button Grid.Row="1" Content="Start Pomodoro" FontSize="16" Command="{Binding StartClockCommand}"                 
+                Padding="0" Visibility="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource booleanToVisibilityConverter}}" 
                 />
+        <Button Grid.Row="1" Content="Stop Pomodoro" FontSize="16" Command="{Binding StopClockCommand}" 
+                Padding="0"  Visibility="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={StaticResource booleanToVisibilityConverter}}" 
+              />
     </Grid>
 </metro:Window>

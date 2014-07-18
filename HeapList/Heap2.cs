@@ -62,7 +62,7 @@ namespace HeapList
             int finalIndex = _list.Count - 1;
 
             lastIndex = 0;
-            int index = SwapWithChild(0);
+            int index = SwapWithChild(00);
             while(index != lastIndex && lastIndex < finalIndex)
             {
                 lastIndex = index;
